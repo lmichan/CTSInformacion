@@ -1,0 +1,1830 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Curso de Bioinformación - Ciencia, Tecnología y Sociedad">
+  <meta name="author" content="BioinformaciónCTS">
+  <title>BioinformaciónCTS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary-color: #339cff;
+      --primary-dark: #2a7fd9;
+      --bg-dark: #0c1228;
+      --bg-darker: #162239;
+      --bg-darkest: #0a0f1e;
+      --text-light: #ffffff;
+      --text-gray: #b8c5d6;
+      --overlay: rgba(22, 34, 57, 0.95);
+      --section-padding: 100px;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      color: var(--text-light);
+      background-color: var(--bg-darkest);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Header */
+    .main-header {
+      background-color: var(--overlay);
+      height: 80px;
+      position: fixed;
+      z-index: 1000;
+      width: 100%;
+      top: 0;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .main-header.scrolled {
+      height: 70px;
+      background-color: rgba(12, 18, 40, 0.98);
+    }
+
+    .header-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 100%;
+    }
+
+    .logo a {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--text-light);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .logo a em {
+      color: var(--primary-color);
+      font-style: normal;
+    }
+
+    .logo a:hover {
+      transform: scale(1.05);
+    }
+
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text-light);
+      font-size: 24px;
+      cursor: pointer;
+      padding: 10px;
+    }
+
+    .main-nav ul {
+      display: flex;
+      list-style: none;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .main-nav ul li a {
+      color: var(--text-light);
+      text-decoration: none;
+      padding: 10px 18px;
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: all 0.3s ease;
+      border-radius: 4px;
+      display: block;
+      position: relative;
+    }
+
+    .main-nav ul li a::after {
+      content: '';
+      position: absolute;
+      bottom: 5px;
+      left: 18px;
+      right: 18px;
+      height: 2px;
+      background-color: var(--primary-color);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+
+    .main-nav ul li a:hover,
+    .main-nav ul li a.active {
+      color: var(--primary-color);
+    }
+
+    .main-nav ul li a:hover::after,
+    .main-nav ul li a.active::after {
+      transform: scaleX(1);
+    }
+
+    /* Banner */
+    .main-banner {
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80') center/cover;
+    }
+
+    .banner-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(51,156,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
+      opacity: 0.3;
+      animation: backgroundMove 20s linear infinite;
+    }
+
+    @keyframes backgroundMove {
+      0% {
+        transform: translateY(0);
+      }
+
+      100% {
+        transform: translateY(40px);
+      }
+    }
+
+    .banner-content {
+      text-align: center;
+      z-index: 2;
+      max-width: 900px;
+      padding: 0 30px;
+      animation: fadeInUp 1s ease;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .banner-content h6 {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--primary-color);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin-bottom: 20px;
+      animation: fadeInUp 1s ease 0.2s both;
+    }
+
+    .banner-content h2 {
+      font-size: 64px;
+      font-weight: 800;
+      margin-bottom: 30px;
+      line-height: 1.2;
+      animation: fadeInUp 1s ease 0.4s both;
+    }
+
+    .banner-content h2 em {
+      color: var(--primary-color);
+      font-style: normal;
+    }
+
+    .main-button {
+      animation: fadeInUp 1s ease 0.6s both;
+    }
+
+    .main-button a {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+      color: var(--text-light);
+      padding: 15px 40px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border-radius: 50px;
+      display: inline-block;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 20px rgba(51, 156, 255, 0.3);
+    }
+
+    .main-button a:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(51, 156, 255, 0.5);
+    }
+
+    /* Features */
+    .features {
+      background-color: var(--bg-dark);
+      padding: 0;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .feature-card {
+      background-color: var(--bg-darker);
+      padding: 50px 40px;
+      border-right: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary-color), var(--primary-dark));
+      transform: scaleX(0);
+      transition: transform 0.4s ease;
+    }
+
+    .feature-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .feature-card:last-child {
+      border-right: none;
+    }
+
+    .feature-card:hover {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(51, 156, 255, 0.3);
+    }
+
+    .feature-card h4 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .feature-card h4 i {
+      font-size: 28px;
+      color: var(--primary-color);
+      transition: all 0.3s ease;
+    }
+
+    .feature-card:hover h4 i {
+      color: white;
+      transform: scale(1.2) rotate(5deg);
+    }
+
+    .feature-card p {
+      font-size: 14px;
+      line-height: 1.8;
+      color: var(--text-gray);
+      margin-bottom: 10px;
+    }
+
+    .feature-card:hover p {
+      color: rgba(255, 255, 255, 0.95);
+    }
+
+    .feature-card strong {
+      color: var(--text-light);
+    }
+
+    .feature-card a {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-block;
+      margin-top: 15px;
+      border-bottom: 2px solid var(--primary-color);
+      transition: all 0.3s ease;
+    }
+
+    .feature-card:hover a {
+      color: white;
+      border-color: white;
+    }
+
+    /* Section Common Styles */
+    .section {
+      padding: var(--section-padding) 0;
+      position: relative;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 30px;
+    }
+
+    .section-heading {
+      text-align: center;
+      margin-bottom: 70px;
+      position: relative;
+    }
+
+    .section-heading h2 {
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--text-light);
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Presentation Section */
+    .presentation {
+      background: linear-gradient(135deg, rgba(12, 18, 40, 0.4) 0%, rgba(22, 34, 57, 0.5) 100%),
+        url('https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=1920&q=80') center/cover fixed;
+    }
+
+    .tabs-container {
+      background-color: rgba(22, 34, 57, 0.75);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
+    }
+
+    .tab-buttons {
+      display: flex;
+      background-color: rgba(10, 15, 30, 0.9);
+      border-bottom: 2px solid rgba(51, 156, 255, 0.2);
+    }
+
+    .tab-button {
+      flex: 1;
+      padding: 25px 20px;
+      background: none;
+      border: none;
+      color: var(--text-gray);
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.3s ease;
+      letter-spacing: 0.5px;
+    }
+
+    .tab-button::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 2px;
+      background: var(--primary-color);
+      transition: width 0.3s ease;
+    }
+
+    .tab-button:hover {
+      color: var(--primary-color);
+    }
+
+    .tab-button.active {
+      color: var(--primary-color);
+    }
+
+    .tab-button.active::after {
+      width: 80%;
+    }
+
+    .tab-content {
+      display: none;
+      padding: 50px;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .tab-content-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .tab-image {
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease;
+    }
+
+    .tab-image:hover {
+      transform: scale(1.05);
+    }
+
+    .tab-text h4 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: var(--primary-color);
+    }
+
+    .tab-text p {
+      margin-bottom: 15px;
+      line-height: 1.9;
+      color: var(--text-gray);
+    }
+
+    .tab-text ul {
+      list-style: none;
+      margin: 20px 0;
+    }
+
+    .tab-text ul li {
+      padding: 10px 0;
+      padding-left: 30px;
+      position: relative;
+      color: var(--text-gray);
+    }
+
+    .tab-text ul li i {
+      position: absolute;
+      left: 0;
+      color: var(--primary-color);
+      font-size: 16px;
+    }
+
+    /* Evaluation Section */
+    .evaluation {
+      background: linear-gradient(135deg, rgba(22, 34, 57, 0.4) 0%, rgba(12, 18, 40, 0.5) 100%),
+        url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1920&q=80') center/cover fixed;
+    }
+
+    .evaluation-table {
+      background-color: rgba(22, 34, 57, 0.7);
+      border-radius: 12px;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    thead {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    }
+
+    th {
+      padding: 20px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    td:nth-child(2) {
+      text-align: center;
+    }
+
+
+    td {
+      padding: 25px 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      color: var(--text-gray);
+    }
+
+    tbody tr {
+      transition: all 0.3s ease;
+    }
+
+    tbody tr:hover {
+      background-color: rgba(51, 156, 255, 0.1);
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    td strong {
+      color: var(--text-light);
+      font-size: 15px;
+    }
+
+    .percentage {
+      color: var(--primary-color);
+      font-weight: 700;
+      font-size: 18px;
+    }
+
+    .notes {
+      margin-top: 40px;
+      padding: 35px;
+      background: linear-gradient(135deg, rgba(51, 156, 255, 0.25), rgba(51, 156, 255, 0.05));
+      border-radius: 12px;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 8px 25px rgba(51, 156, 255, 0.25);
+    }
+
+    .notes h5 {
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+
+    .notes ul {
+      list-style: none;
+    }
+
+    .notes ul li {
+      padding: 8px 0;
+      padding-left: 25px;
+      position: relative;
+      color: var(--text-gray);
+    }
+
+    .notes ul li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--primary-color);
+      font-size: 20px;
+    }
+
+    /* Sessions Section */
+    .sessions {
+      background: linear-gradient(135deg, rgba(12, 18, 40, 0.4) 0%, rgba(22, 34, 57, 0.5) 100%),
+        url('https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=1920&q=80') center/cover fixed;
+    }
+
+    .sessions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 30px;
+      margin-top: 50px;
+    }
+
+    .session-card {
+      background: rgba(22, 34, 57, 0.75);
+      padding: 0;
+      border-radius: 12px;
+      border: 1px solid rgba(51, 156, 255, 0.2);
+      transition: all 0.4s ease;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      text-decoration: none;
+      display: block;
+      color: inherit;
+    }
+
+    .session-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(51, 156, 255, 0.4);
+      border-color: var(--primary-color);
+    }
+
+    .session-thumbnail {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .session-content {
+      padding: 30px;
+    }
+
+    .session-number {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+      color: white;
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-weight: 700;
+      font-size: 13px;
+      margin-bottom: 20px;
+    }
+
+    .session-card h3 {
+      font-size: 20px;
+      margin-bottom: 15px;
+      color: var(--text-light);
+    }
+
+    .session-card p {
+      color: var(--text-gray);
+      line-height: 1.8;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    .session-date {
+      color: var(--primary-color);
+      font-size: 13px;
+      font-weight: 600;
+      margin-top: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Homework Section */
+    .homework {
+      background: linear-gradient(135deg, rgba(22, 34, 57, 0.95) 0%, rgba(12, 18, 40, 0.9) 100%),
+        url('https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?w=1920&q=80') center/cover fixed;
+    }
+
+    .homework-list {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .homework-item {
+      background-color: rgba(22, 34, 57, 0.8);
+      padding: 30px;
+      margin-bottom: 20px;
+      border-radius: 12px;
+      border-left: 4px solid var(--primary-color);
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(10px);
+    }
+
+    .homework-item:hover {
+      transform: translateX(10px);
+      box-shadow: 0 8px 30px rgba(51, 156, 255, 0.3);
+    }
+
+    .homework-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .homework-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-light);
+    }
+
+    .homework-status {
+      padding: 6px 18px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .status-active {
+      background-color: rgba(51, 156, 255, 0.2);
+      color: var(--primary-color);
+    }
+
+    .status-upcoming {
+      background-color: rgba(255, 193, 7, 0.2);
+      color: #ffc107;
+    }
+
+    .homework-description {
+      color: var(--text-gray);
+      line-height: 1.8;
+      margin-bottom: 15px;
+    }
+
+    .homework-meta {
+      display: flex;
+      gap: 30px;
+      font-size: 13px;
+      color: var(--text-gray);
+      flex-wrap: wrap;
+    }
+
+    .homework-meta i {
+      color: var(--primary-color);
+      margin-right: 8px;
+    }
+
+    /* Footer */
+    footer {
+      background-color: var(--bg-darkest);
+      padding: 30px 0;
+      text-align: center;
+      border-top: 1px solid rgba(51, 156, 255, 0.2);
+    }
+
+    footer p {
+      color: var(--text-gray);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      :root {
+        --section-padding: 70px;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .feature-card {
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      .feature-card:last-child {
+        border-bottom: none;
+      }
+
+      .banner-content h2 {
+        font-size: 48px;
+      }
+
+      .tab-buttons {
+        flex-direction: column;
+      }
+
+      .tab-button::after {
+        left: 0;
+        transform: none;
+        width: 0;
+        height: 100%;
+        top: 0;
+      }
+
+      .tab-button.active::after {
+        width: 4px;
+        height: 100%;
+      }
+
+      .tab-content-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .tab-image {
+        order: -1;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+
+      .main-nav {
+        position: absolute;
+        top: 80px;
+        left: 0;
+        right: 0;
+        background-color: rgba(12, 18, 40, 0.98);
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+      }
+
+      .main-nav.active {
+        max-height: 500px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      }
+
+      .main-nav ul {
+        flex-direction: column;
+        padding: 20px 0;
+      }
+
+      .main-nav ul li {
+        width: 100%;
+        text-align: center;
+      }
+
+      .main-nav ul li a {
+        display: block;
+        padding: 15px 30px;
+      }
+
+      .main-nav ul li a::after {
+        left: 50%;
+        right: auto;
+        bottom: 5px;
+        transform: translateX(-50%) scaleX(0);
+      }
+
+      .main-nav ul li a:hover::after,
+      .main-nav ul li a.active::after {
+        transform: translateX(-50%) scaleX(1);
+      }
+
+      .banner-content h2 {
+        font-size: 36px;
+      }
+
+      .banner-content h6 {
+        font-size: 14px;
+      }
+
+      .section-heading h2 {
+        font-size: 28px;
+        padding: 15px 25px;
+      }
+
+      .tab-content {
+        padding: 30px 20px;
+      }
+
+      table {
+        font-size: 13px;
+      }
+
+      th,
+      td {
+        padding: 15px 10px;
+      }
+
+      .homework-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .logo a {
+        font-size: 22px;
+      }
+
+      .banner-content h2 {
+        font-size: 28px;
+      }
+
+      .main-button a {
+        padding: 12px 30px;
+        font-size: 13px;
+      }
+
+      .feature-card {
+        padding: 30px 25px;
+      }
+    }
+
+    /* Smooth Scroll */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* ==================== HERRAMIENTAS ==================== */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 25px;
+      margin-top: 40px;
+    }
+
+    .tool-card {
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 22px 20px;
+      text-align: center;
+      text-decoration: none;
+      transition: transform .25s ease, box-shadow .25s ease;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, .15);
+    }
+
+    .tool-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 10px 25px rgba(51, 156, 255, .35);
+    }
+
+    .tool-card img {
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+      margin-bottom: 12px;
+    }
+
+    .tool-card p {
+      color: var(--primary);
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: .3px;
+    }
+
+    .tareas {
+      background: linear-gradient(135deg, rgba(12, 18, 40, .6), rgba(22, 34, 57, .6));
+    }
+
+    .subtitle {
+      color: var(--gray);
+      margin-top: 10px;
+      font-size: 15px;
+    }
+
+    .mastodon-box {
+      margin: 40px 0;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      border-radius: 14px;
+      padding: 30px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      color: white;
+      box-shadow: 0 10px 30px rgba(51, 156, 255, .4);
+    }
+
+    .mastodon-box i {
+      font-size: 40px;
+    }
+
+    .tareas-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 25px;
+      margin-top: 40px;
+    }
+
+    .tarea-card {
+      position: relative;
+      height: 220px;
+      border-radius: 16px;
+      background-size: cover;
+      background-position: center;
+      cursor: pointer;
+      overflow: hidden;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, .35);
+      transition: transform .3s ease;
+    }
+
+    .tarea-card:hover {
+      transform: translateY(-6px);
+    }
+
+    .tarea-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0, 0, 0, .35), rgba(0, 0, 0, .7));
+    }
+
+    .tarea-title {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      right: 20px;
+      font-size: 18px;
+      font-weight: 700;
+      color: white;
+      z-index: 2;
+    }
+
+    .tarea-desc {
+      position: absolute;
+      inset: 0;
+      background: rgba(12, 18, 40, .95);
+      color: white;
+      padding: 25px;
+      font-size: 14px;
+      line-height: 1.7;
+      opacity: 0;
+      z-index: 3;
+      transition: opacity .3s ease;
+      display: flex;
+      align-items: center;
+      text-align: center;
+    }
+
+    .tarea-card.active .tarea-desc {
+      opacity: 1;
+    }
+
+    .btn-calendario{
+  background: linear-gradient(135deg, #2563eb, #1e40af);
+  color:white;
+  border:none;
+  padding:16px 34px;
+  border-radius:40px;
+  font-size:16px;
+  font-weight:700;
+  letter-spacing:.4px;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  gap:12px;
+  box-shadow:0 8px 25px rgba(37,99,235,.45);
+  transition:all .3s ease;
+}
+
+.btn-calendario i{
+  font-size:18px;
+}
+
+.btn-calendario:hover{
+  transform:translateY(-3px);
+  box-shadow:0 12px 32px rgba(37,99,235,.6);
+}
+
+.btn-calendario:active{
+  transform:translateY(0);
+  box-shadow:0 6px 18px rgba(37,99,235,.4);
+}
+
+
+    .calendario-container {
+      display: none;
+      margin-top: 40px;
+    }
+
+    .calendario-container h3 {
+      text-align: center;
+      color: var(--primary);
+      margin-bottom: 30px;
+    }
+
+    .mes {
+      margin-bottom: 40px;
+    }
+
+    .mes h4 {
+      color: white;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    .dias {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    .dia {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      background: #2b2b2b;
+      color: white;
+      position: relative;
+    }
+
+    .dia.clase {
+      background: #339cff;
+      box-shadow: 0 0 0 6px rgba(51, 156, 255, .25);
+      cursor: pointer;
+    }
+
+    .dia.asueto {
+      background: #999;
+    }
+
+    .dia::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: 60px;
+      background: #0c1228;
+      color: white;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      opacity: 0;
+      pointer-events: none;
+      white-space: nowrap;
+      transition: .3s;
+    }
+
+    .dia:hover::after {
+      opacity: 1;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="loading" id="loading">
+    <div class="spinner"></div>
+  </div>
+
+  <header class="main-header" id="header">
+    <div class="header-container">
+      <div class="logo">
+        <a href="#inicio"><em>Bioinformación</em>CTS</a>
+      </div>
+      <button class="menu-toggle" id="menuToggle">
+        <i class="fas fa-bars"></i>
+      </button>
+      <nav class="main-nav" id="mainNav">
+        <ul>
+          <li><a href="#inicio" class="nav-link active">Inicio</a></li>
+          <li><a href="#presentacion" class="nav-link">Presentación</a></li>
+          <li><a href="#evaluacion" class="nav-link">Evaluación</a></li>
+          <li>
+            <a href="https://www.fciencias.unam.mx/sites/default/files/temario/651.pdf" class="nav-link"
+              target="_blank">Temario</a>
+          </li>
+          <li><a href="#herramientas" class="nav-link">Herramientas</a></li>
+          <li><a href="#sesiones" class="nav-link">Sesiones</a></li>
+
+          <!-- <li><a href="#tareas" class="nav-link">Tareas</a></li> -->
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="main-banner" id="inicio">
+    <div class="banner-bg"></div>
+    <div class="banner-content">
+      <h6>Ciencia, Tecnología y Sociedad</h6>
+      <h2><em>La</em> Bioinformación</h2>
+      <div class="main-button">
+        <a href="#presentacion">Descubre más</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="features-grid">
+      <div class="feature-card">
+        <h4><i class="fas fa-bullseye"></i> Objetivo General</h4>
+        <p>Explorar la intersección entre información, ciencia y tecnología desde una perspectiva digital, con énfasis
+          en las biociencias. El curso busca desarrollar competencias para recuperar, analizar y gestionar información
+          científica especializada, utilizando herramientas informáticas de vanguardia y métodos innovadores de
+          investigación digital.</p>
+      </div>
+      <div class="feature-card">
+        <h4><i class="fas fa-graduation-cap"></i> Clase Virtual</h4>
+        <p><strong>Modalidad:</strong> En línea (sincrónico)</p>
+        <p><strong>Horario:</strong> Miércoles, 18:00-20:00 hrs, vía Jitsi</p>
+        <p><strong>Enlace de acceso:</strong> Se enviará por correo después de la inscripción</p>
+      </div>
+      <div class="feature-card">
+        <h4><i class="fas fa-book"></i> Bibliografía Básica</h4>
+        <p>La bibliografía está disponible en Zotero. Accede a una colección completa de recursos académicos y
+          materiales de referencia para el curso.</p>
+        <a href="https://www.zotero.org/groups/4875285/ctsi" target="_blank">Accede aquí <i
+            class="fas fa-external-link-alt"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section presentation" id="presentacion">
+    <div class="container">
+      <div class="section-heading">
+        <h2>Presentación</h2>
+      </div>
+      <div class="tabs-container">
+        <div class="tab-buttons">
+          <button class="tab-button active" data-tab="contexto">Contexto y Relevancia</button>
+          <button class="tab-button" data-tab="caracteristicas">Características del Curso</button>
+          <button class="tab-button" data-tab="detalles">Detalles del Curso</button>
+        </div>
+
+        <div class="tab-content active" id="contexto">
+          <div class="tab-content-grid">
+            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80"
+              alt="Contexto y Relevancia" class="tab-image">
+            <div class="tab-text">
+              <h4>Contexto y Relevancia</h4>
+              <p>Vivimos en la era de la información, donde el progreso científico y tecnológico ha generado una
+                explosión de datos en formatos diversos: textos, imágenes, sonidos, bases de datos, repositorios, redes
+                sociales, y más.</p>
+              <ul>
+                <li><i class="fas fa-book"></i><strong>Infodiversidad:</strong> La información científica es colosal,
+                  compleja y está en constante evolución.</li>
+                <li><i class="fas fa-laptop"></i><strong>Acceso y análisis:</strong> La práctica científica ya no se
+                  limita a experimentos <em>in vivo</em> o <em>in vitro</em>, sino que incluye análisis <em>in
+                    silico</em> mediante herramientas computacionales.</li>
+                <li><i class="fas fa-sync-alt"></i><strong>Actualización continua:</strong> Las bases de datos, el
+                  software y los métodos de recuperación de información cambian rápidamente, lo que exige estar al día
+                  para investigar de manera eficiente y crítica.</li>
+              </ul>
+              <p><strong>Este curso es esencial para quienes buscan:</strong></p>
+              <ul>
+                <li><i class="fas fa-arrow-right"></i> Optimizar la búsqueda y análisis de literatura científica</li>
+                <li><i class="fas fa-arrow-right"></i> Entender el impacto de la tecnología en la generación y difusión
+                  del conocimiento</li>
+                <li><i class="fas fa-arrow-right"></i> Desarrollar habilidades para evaluar y visualizar datos en
+                  biociencias</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-content" id="caracteristicas">
+          <div class="tab-content-grid">
+            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&q=80" alt="Características"
+              class="tab-image">
+            <div class="tab-text">
+              <h4>Características del Curso</h4>
+              <p><strong>Modalidad:</strong> En línea (sincrónico)</p>
+              <p><strong>Horario:</strong> Miércoles, 18:00-20:00 hrs, vía Jitsi</p>
+              <p><strong>Enlace de acceso:</strong> Se enviará por correo después de la inscripción</p>
+              <p><strong>Actividades:</strong> 16 sesiones de 2 hrs síncronas</p>
+              <p><strong>Ventajas:</strong> Flexibilidad para conectarte desde cualquier lugar</p>
+              <p><strong>Retos:</strong> Personalización según las necesidades individuales</p>
+              <p>El diseño de la materia trata de ser lo más flexible y personalizado posible para poder ajustarse a las
+                necesidades de todos los estudiantes.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-content" id="detalles">
+          <div class="tab-content-grid">
+            <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=800&q=80" alt="Detalles"
+              class="tab-image">
+            <div class="tab-text">
+              <h4>Detalles del Curso</h4>
+              <p><strong><i class="fas fa-bullseye"></i> Objetivos Particulares</strong></p>
+              <ul>
+                <li><i class="fas fa-check-circle"></i> Analizar las últimas tendencias en información científica y su
+                  impacto en la investigación</li>
+                <li><i class="fas fa-check-circle"></i> Adquirir competencias informáticas básicas para procesar datos,
+                  literatura y metadatos en investigación científica</li>
+                <li><i class="fas fa-check-circle"></i> Dominar herramientas electrónicas avanzadas para la gestión de
+                  información en biociencias</li>
+                <li><i class="fas fa-check-circle"></i> Identificar y discutir temas emergentes en tecnologías de la
+                  información aplicadas a las ciencias biomédicas</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section evaluation" id="evaluacion">
+    <div class="container">
+      <div class="section-heading">
+        <h2><i class="fas fa-chart-bar"></i> Evaluación</h2>
+      </div>
+      <div class="evaluation-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Actividad</th>
+              <th>Porcentaje</th>
+              <th>Detalles</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Exposición de un tema de bioinformática</strong></td>
+              <td><span class="percentage">30%</span></td>
+              <td>Presentación clara y fundamentada sobre un tema seleccionado</td>
+            </tr>
+            <tr>
+              <td><strong>Tareas libres</strong></td>
+              <td><span class="percentage">30%</span></td>
+              <td>Entrega de 5 tareas libres (1 por sesión, individual)</td>
+            </tr>
+            <tr>
+              <td><strong>Análisis de artículo científico</strong></td>
+              <td><span class="percentage">20%</span></td>
+              <td>Identificar 10 puntos clave y elaborar una infografía (resumen gráfico). Individual</td>
+            </tr>
+            <tr>
+              <td><strong>Participación activa</strong></td>
+              <td><span class="percentage">20%</span></td>
+              <td>Opiniones relevantes y asistencia mínima a 13 clases para obtener calificación en este rubro</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="notes">
+        <h5>Notas importantes:</h5>
+        <ul>
+          <li>Esta versión es preliminar y se ajustará según las opiniones de los estudiantes inscritos</li>
+          <li>La asistencia y participación activa son imprescindibles para evaluar este rubro</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section sessions" id="sesiones">
+    <div class="container">
+      <div class="section-heading">
+        <h2>Sesiones del Curso</h2>
+      </div>
+      <button class="btn-calendario" onclick="toggleCalendario()">
+  <i class="fas fa-calendar-alt"></i>
+  Calendario del curso
+</button>
+
+      <div id="calendarioCurso" class="calendario-container">
+
+        <h3>Calendario del curso</h3>
+
+        <div class="mes">
+          <h4>Enero 2026</h4>
+          <div class="dias">
+            <div class="dia clase" data-tooltip="Presentación del curso">28</div>
+          </div>
+        </div>
+
+        <div class="mes">
+          <h4>Febrero 2026</h4>
+          <div class="dias">
+            <div class="dia clase" data-tooltip="Introducción, enfoques y disciplinas">4</div>
+            <div class="dia clase" data-tooltip="Información, tecnología y ciencias">11</div>
+            <div class="dia clase" data-tooltip="Literatura y publicación científica">18</div>
+            <div class="dia clase" data-tooltip="Datos y metadatos">25</div>
+          </div>
+        </div>
+
+        <div class="mes">
+          <h4>Marzo 2026</h4>
+          <div class="dias">
+            <div class="dia clase" data-tooltip="Estructura de la literatura científica">4</div>
+            <div class="dia clase" data-tooltip="Bases de datos y gestores bibliográficos">11</div>
+            <div class="dia clase" data-tooltip="Marcadores, wikis y feeds">18</div>
+            <div class="dia clase" data-tooltip="Redes sociales académicas">25</div>
+          </div>
+        </div>
+
+        <div class="mes">
+          <h4>Abril 2026</h4>
+          <div class="dias">
+            <div class="dia asueto" data-tooltip="Día de asueto">1</div>
+            <div class="dia clase" data-tooltip="Recuperación de información">8</div>
+            <div class="dia clase" data-tooltip="Estrategias de búsqueda">15</div>
+            <div class="dia clase" data-tooltip="Revisiones bibliográficas">22</div>
+            <div class="dia clase" data-tooltip="Visualización de información">29</div>
+          </div>
+        </div>
+
+        <div class="mes">
+          <h4>Mayo 2026</h4>
+          <div class="dias">
+            <div class="dia clase" data-tooltip="Big Data y minería de textos">6</div>
+            <div class="dia clase" data-tooltip="IA y web semántica">13</div>
+            <div class="dia clase" data-tooltip="Datos ligados y ontologías">20</div>
+            <div class="dia clase" data-tooltip="Cierre del curso">27</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="sessions-grid">
+        <a href="https://www.youtube.com/watch?v=VIDEO_ID_1" target="_blank" class="session-card">
+          <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&q=80" alt="Sesión 1"
+            class="session-thumbnail">
+          <div class="session-content">
+            <span class="session-number">Sesión 1</span>
+            <h3>Introducción a la Bioinformación</h3>
+            <p>Conceptos fundamentales, historia y evolución de la bioinformática.</p>
+            <div class="session-date">
+              <i class="far fa-calendar"></i> Semana 1
+              <i class="fab fa-youtube" style="margin-left: auto; font-size: 20px;"></i>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section tareas" id="tareas">
+    <div class="container">
+
+      <div class="section-heading">
+        <h2><i class="fas fa-tasks"></i> Tareas Libres</h2>
+        <p class="subtitle">
+          Cada estudiante deberá elegir <strong>5 tareas</strong>.
+          Cada tarea vale <strong>6%</strong>, sumando un total de <strong>30%</strong> de la calificación final.
+        </p>
+      </div>
+
+      <div class="mastodon-box">
+        <i class="fab fa-mastodon"></i>
+        <p>
+          Todas las tareas se entregan mediante publicaciones en <strong>Mastodon</strong>, incluyendo:
+          título, descripción, evidencia, fuentes y reflexión personal, usando el hashtag oficial del curso.
+        </p>
+      </div>
+
+      <div class="tareas-grid">
+
+        <!-- 1 -->
+        <div class="tarea-card" onclick="toggleTask(this)"
+          style="background-image:url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800');">
+          <div class="tarea-title">Lectura crítica de artículo</div>
+          <div class="tarea-desc">Leer un artículo científico digital y elaborar una reseña estructurada con análisis y
+            opinión crítica.</div>
+        </div>
+
+        <!-- 2 -->
+        <div class="tarea-card" onclick="toggleTask(this)"
+          style="background-image:url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800');">
+          <div class="tarea-title">Video explicativo</div>
+          <div class="tarea-desc">Grabar un video mínimo de 7 minutos explicando un tema, recurso o problema del curso.
+          </div>
+        </div>
+
+        <!-- 3 -->
+        <div class="tarea-card" onclick="toggleTask(this)"
+          style="background-image:url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=800');">
+          <div class="tarea-title">Infografía</div>
+          <div class="tarea-desc">Diseñar una infografía académica que sintetice información relevante del curso.</div>
+        </div>
+
+        <!-- 4 -->
+        <div class="tarea-card" onclick="toggleTask(this)"
+          style="background-image:url('https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=800');">
+          <div class="tarea-title">Memes científicos</div>
+          <div class="tarea-desc">Diseñar tres memes con contenido académico y explicación breve de cada uno.</div>
+        </div>
+
+        <!-- 5 -->
+        <div class="tarea-card" onclick="toggleTask(this)"
+          style="background-image:url('https://images.unsplash.com/photo-1494172961521-33799ddd43a5?w=800');">
+          <div class="tarea-title">Análisis de video</div>
+          <div class="tarea-desc">Ver un video mínimo de una hora y elaborar un resumen crítico.</div>
+        </div>
+
+        <!-- 6 -->
+        <div class="tarea-card" onclick="toggleTask(this)"
+          style="background-image:url('https://images.unsplash.com/photo-1515169067865-5387ec356754?w=800');">
+          <div class="tarea-title">Diez simples reglas</div>
+          <div class="tarea-desc">Redactar o analizar un texto tipo “Diez simples reglas” sobre un tema del curso.</div>
+        </div>
+
+        <!-- 7 -->
+        <div class="tarea-card" onclick="toggleTask(this)"
+          style="background-image:url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=800');">
+          <div class="tarea-title">Material didáctico</div>
+          <div class="tarea-desc">Diseñar una actividad, ejercicio o práctica para aplicarse en clase.</div>
+        </div>
+
+        <!-- 8 -->
+        <div class="tarea-card" onclick="toggleTask(this)"
+          style="background-image:url('https://images.unsplash.com/photo-1508780709619-79562169bc64?w=800');">
+          <div class="tarea-title">Hub de investigación</div>
+          <div class="tarea-desc">Reunir en un solo sitio digital todos los recursos utilizados en el curso.</div>
+        </div>
+
+        <!-- 9 -->
+        <div class="tarea-card" onclick="toggleTask(this)"
+          style="background-image:url('https://images.unsplash.com/photo-1532619187608-e5375cab36aa?w=800');">
+          <div class="tarea-title">Visualización</div>
+          <div class="tarea-desc">Generar una visualización gráfica de datos relevantes para el curso.</div>
+        </div>
+
+        <!-- 10 -->
+        <div class="tarea-card" onclick="toggleTask(this)"
+          style="background-image:url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800');">
+          <div class="tarea-title">Ejercicios de guía</div>
+          <div class="tarea-desc">Resolver tres actividades de la guía interactiva del laboratorio.</div>
+        </div>
+
+        <!-- 11 -->
+        <div class="tarea-card" onclick="toggleTask(this)"
+          style="background-image:url('https://images.unsplash.com/photo-1611162617213-7d7a39e9b1b7?w=800');">
+          <div class="tarea-title">Uso de Mastodon</div>
+          <div class="tarea-desc">Compartir información relevante del curso durante el semestre y entregar evidencia.
+          </div>
+        </div>
+
+        <!-- 12 -->
+        <div class="tarea-card" onclick="toggleTask(this)"
+          style="background-image:url('https://images.unsplash.com/photo-1589571894960-20bbe2828a27?w=800');">
+          <div class="tarea-title">Edición en Wikipedia</div>
+          <div class="tarea-desc">Editar o mejorar un artículo en español relacionado con el curso.</div>
+        </div>
+
+        <!-- 13 -->
+        <div class="tarea-card" onclick="toggleTask(this)"
+          style="background-image:url('https://images.unsplash.com/photo-1505685296765-3a2736de412f?w=800');">
+          <div class="tarea-title">Línea del tiempo</div>
+          <div class="tarea-desc">Elaborar una línea del tiempo digital sobre un tema del curso.</div>
+        </div>
+
+        <!-- 14 -->
+        <div class="tarea-card" onclick="toggleTask(this)"
+          style="background-image:url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800');">
+          <div class="tarea-title">Tabla comparativa</div>
+          <div class="tarea-desc">Diseñar una tabla comparativa analítica sobre conceptos o herramientas.</div>
+        </div>
+
+        <!-- 15 -->
+        <div class="tarea-card" onclick="toggleTask(this)"
+          style="background-image:url('https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?w=800');">
+          <div class="tarea-title">Diseño de juego</div>
+          <div class="tarea-desc">Crear un juego educativo para aplicar gamificación en clase.</div>
+        </div>
+
+        <!-- 16 -->
+        <div class="tarea-card" onclick="toggleTask(this)"
+          style="background-image:url('https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800');">
+          <div class="tarea-title">Ensayo académico</div>
+          <div class="tarea-desc">Redactar un ensayo reflexivo sobre un tema o experiencia del curso.</div>
+        </div>
+
+        <!-- 17 -->
+        <div class="tarea-card" onclick="toggleTask(this)"
+          style="background-image:url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800');">
+          <div class="tarea-title">Propuesta libre</div>
+          <div class="tarea-desc">Proponer una actividad original relacionada con el curso.</div>
+        </div>
+
+        <!-- 18 -->
+        <div class="tarea-card" onclick="toggleTask(this)"
+          style="background-image:url('https://images.unsplash.com/photo-1518770660439-4636190af475?w=800');">
+          <div class="tarea-title">Herramienta digital</div>
+          <div class="tarea-desc">Elaborar una guía práctica para el uso de una herramienta digital.</div>
+        </div>
+
+        <!-- 19 -->
+        <div class="tarea-card" onclick="toggleTask(this)"
+          style="background-image:url('https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?w=800');">
+          <div class="tarea-title">Dibujo científico</div>
+          <div class="tarea-desc">Realizar un dibujo a mano y digitalizarlo.</div>
+        </div>
+
+        <!-- 20 -->
+        <div class="tarea-card" onclick="toggleTask(this)"
+          style="background-image:url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=800');">
+          <div class="tarea-title">Biblioteca temática</div>
+          <div class="tarea-desc">Construir una biblioteca digital comentada sobre un tema.</div>
+        </div>
+
+        <!-- 21 -->
+        <div class="tarea-card" onclick="toggleTask(this)"
+          style="background-image:url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=800');">
+          <div class="tarea-title">Artículo de difusión</div>
+          <div class="tarea-desc">Desarrollar un recurso de divulgación científica conforme a los criterios del curso.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+
+  <section class="section" id="herramientas">
+    <div class="container">
+
+      <div class="section-heading">
+        <h2><i class="fas fa-tools"></i> Herramientas</h2>
+        <p>Accede a recursos útiles y plataformas relacionadas con Bioinformación</p>
+      </div>
+
+      <div class="tools-grid">
+
+        <a href="mailto:infovestigacion@gmail.com" class="tool-card">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" alt="Email Logo">
+          <p>G-mail</p>
+        </a>
+
+        <a href="https://twitter.com/infovestigacion" class="tool-card" target="_blank">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/twitter/twitter-original.svg" alt="Twitter Logo">
+          <p>Twitter</p>
+        </a>
+
+        <a href="https://hypothes.is/groups/MbpJgqKj/bioinfovestigacion-edu" class="tool-card" target="_blank">
+          <img src="https://d242fdlp0qlcia.cloudfront.net/uploads/brand/HypothesisIconColor.svg" alt="Hypothesis Logo">
+          <p>Hypothesis</p>
+        </a>
+
+        <a href="https://www.youtube.com/channel/UC6lK9h-wDG2ShjQLMOFlJdw" class="tool-card" target="_blank">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTOq8SYpADNSH657TJFe7Dnf6gVpIKTSEkyA&s" alt="YouTube Logo">
+          <p>YouTube</p>
+        </a>
+
+        <a href="https://github.com/lmichan/BioinformacionCTS" class="tool-card" target="_blank">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub Logo">
+          <p>GitHub</p>
+        </a>
+
+        <a href="https://infovestigacion.blogspot.com/" class="tool-card" target="_blank">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Blogger_icon_2017.svg/2048px-Blogger_icon_2017.svg.png" alt="Blog Logo">
+          <p>Blog</p>
+        </a>
+
+        <a href="https://sites.google.com/a/ciencias.unam.mx/layla-michan/Home" class="tool-card" target="_blank">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg"
+            alt="Google Sites Logo">
+          <p>Google Sites</p>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- SECCIÓN DE TAREAS COMENTADA TEMPORALMENTE
+  <section class="section homework" id="tareas">
+    <div class="container">
+      <div class="section-heading">
+        <h2>Tareas del Curso</h2>
+      </div>
+      <div class="homework-list">
+        <div class="homework-item">
+          <div class="homework-header">
+            <h3 class="homework-title">Tarea 1: Búsqueda Bibliográfica</h3>
+            <span class="homework-status status-active">Activa</span>
+          </div>
+          <p class="homework-description">Realizar una búsqueda exhaustiva sobre un tema de bioinformática usando al menos 3 bases de datos diferentes. Documentar la estrategia de búsqueda y los resultados obtenidos.</p>
+          <div class="homework-meta">
+            <span><i class="far fa-clock"></i> Fecha límite: Semana 3</span>
+            <span><i class="fas fa-percentage"></i> Valor: 6%</span>
+            <span><i class="fas fa-user"></i> Individual</span>
+          </div>
+        </div>
+
+        <div class="homework-item">
+          <div class="homework-header">
+            <h3 class="homework-title">Tarea 2: Análisis de Secuencias</h3>
+            <span class="homework-status status-upcoming">Próxima</span>
+          </div>
+          <p class="homework-description">Utilizar BLAST para analizar una secuencia proteica. Identificar homólogos y realizar un análisis comparativo de las funciones encontradas.</p>
+          <div class="homework-meta">
+            <span><i class="far fa-clock"></i> Fecha límite: Semana 6</span>
+            <span><i class="fas fa-percentage"></i> Valor: 6%</span>
+            <span><i class="fas fa-user"></i> Individual</span>
+          </div>
+        </div>
+
+        <div class="homework-item">
+          <div class="homework-header">
+            <h3 class="homework-title">Tarea 3: Visualización de Datos</h3>
+            <span class="homework-status status-upcoming">Próxima</span>
+          </div>
+          <p class="homework-description">Crear visualizaciones informativas a partir de un conjunto de datos biológicos proporcionado. Debe incluir al menos 3 tipos diferentes de gráficos.</p>
+          <div class="homework-meta">
+            <span><i class="far fa-clock"></i> Fecha límite: Semana 9</span>
+            <span><i class="fas fa-percentage"></i> Valor: 6%</span>
+            <span><i class="fas fa-user"></i> Individual</span>
+          </div>
+        </div>
+
+        <div class="homework-item">
+          <div class="homework-header">
+            <h3 class="homework-title">Tarea 4: Análisis Bibliométrico</h3>
+            <span class="homework-status status-upcoming">Próxima</span>
+          </div>
+          <p class="homework-description">Realizar un análisis bibliométrico de un tema de investigación. Calcular métricas de impacto y crear redes de cocitación.</p>
+          <div class="homework-meta">
+            <span><i class="far fa-clock"></i> Fecha límite: Semana 12</span>
+            <span><i class="fas fa-percentage"></i> Valor: 6%</span>
+            <span><i class="fas fa-user"></i> Individual</span>
+          </div>
+        </div>
+
+        <div class="homework-item">
+          <div class="homework-header">
+            <h3 class="homework-title">Tarea 5: Análisis de Artículo Científico</h3>
+            <span class="homework-status status-upcoming">Próxima</span>
+          </div>
+          <p class="homework-description">Identificar 10 puntos clave de un artículo científico asignado y elaborar una infografía que resuma gráficamente los hallazgos principales.</p>
+          <div class="homework-meta">
+            <span><i class="far fa-clock"></i> Fecha límite: Semana 15</span>
+            <span><i class="fas fa-percentage"></i> Valor: 6%</span>
+            <span><i class="fas fa-user"></i> Individual</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  -->
+
+  <footer>
+    <div class="container">
+      <p>Grupo 3032 - Ciencia, Tecnología y Sociedad. 2026-2</p>
+    </div>
+  </footer>
+
+  <script>
+    function toggleCalendario() {
+      const cal = document.getElementById("calendarioCurso");
+      cal.style.display = cal.style.display === "block" ? "none" : "block";
+    }
+
+
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const mainNav = document.getElementById('mainNav');
+
+    menuToggle.addEventListener('click', () => {
+      mainNav.classList.toggle('active');
+      const icon = menuToggle.querySelector('i');
+      icon.classList.toggle('fa-bars');
+      icon.classList.toggle('fa-times');
+    });
+
+    // Close menu when clicking on a link
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mainNav.classList.remove('active');
+        const icon = menuToggle.querySelector('i');
+        icon.classList.add('fa-bars');
+        icon.classList.remove('fa-times');
+      });
+    });
+
+    // Header scroll effect
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Active navigation link
+    const sections = document.querySelectorAll('.section, .main-banner');
+
+    window.addEventListener('scroll', () => {
+      let current = 'inicio';
+
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (window.scrollY >= (sectionTop - 100)) {
+          current = section.getAttribute('id');
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${current}`) {
+          link.classList.add('active');
+        }
+      });
+    });
+
+    // Tabs functionality
+    const tabButtons = document.querySelectorAll('.tab-button');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const tabId = button.getAttribute('data-tab');
+
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        tabContents.forEach(content => content.classList.remove('active'));
+
+        button.classList.add('active');
+        document.getElementById(tabId).classList.add('active');
+      });
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          const offsetTop = target.offsetTop - 70;
+          window.scrollTo({
+            top: offsetTop,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>
