@@ -1,5 +1,5 @@
 # 
-Curso de la licenciatura en Física Biomédica denominada Ciencia, Tecnología y Sociedad: La información biomédica
+Curso de la licenciatura en Física Biomédica denominada Ciencia, Tecnología y Sociedad: Información
 Licenciatura en Física Biomédica
 Facultad de Ciencias UNAM
 
@@ -7,7 +7,7 @@ Este curso se centra en estudiar la información especializada disponible en la 
 
 🖊️Materia: https://web.fciencias.unam.mx/docencia/horarios/presentacion/370604
 
-🌎Página Web: https://lmichan.github.io/CTSInformacionBIOmedica/
+🌎Página Web: https://lmichan.github.io/CTSInformacion/
 
 🔖Etiqueta del curso: #CTSInformacionBIOmedica
 
